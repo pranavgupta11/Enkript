@@ -7,6 +7,14 @@
 4. security due to cost of factoring large numbers
 5. factorization takes O(e ^ log n log log n) operations (hard)
 
+Take two distinct, large primes p and q.
+Ideally these have a similar byte-length.
+Multiply p and q and store the result in n.
+Find the totient for n using the formula: 𝜑(𝑛) = (𝑝−1)⋅(𝑞−1).
+Take an e coprime that is greater, than 1 and less than n.
+Find d using the formula 𝑑⋅𝑒 ≡ 1 mod 𝜑(𝑛).
+At this point, the pair (e, n) is the public key and the private key (d, n) is the private key.
+
 ## Potential Attacks
 1. Factorization - The obvious way to do this attacks is to factor the public modulus, n, into its two prime factors, p and q. From p, q and e, the attacker can easily get d. The hard part is factoring n:
     1.1 Security on RSA depends on factoring being difficult.
