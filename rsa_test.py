@@ -27,6 +27,7 @@ def multiplicative_inverse(e, phi):
         y1 = y
     if temp_phi == 1:
         return d + phi
+    
 # Prime Testing
 def is_prime(num):
     if num == 2:
@@ -37,6 +38,7 @@ def is_prime(num):
         if num % n == 0:
             return False
     return True
+
 # Generate Public and Private key pair 
 def generate_key_pair(p, q):
     if not (is_prime(p) and is_prime(q)):
@@ -114,6 +116,8 @@ def encrypt_rsa(public):
     return encrypted_msg
 
 def decrypt_rsa(private, encrypted_msg):
+    print(" - Cipher Text: ", end="")
+    printAfterJoin(encrypted_msg)
     print(" - Decrypting message with private key ", private, " . . .")
     print(" - Your message is: ", decrypt(private, encrypted_msg))
 
@@ -178,13 +182,19 @@ def findX(n):
         x = random.randint(2, n-1)  # Choose a random integer between 2 and n-1
         if gcd(x, n) == 1:          # Check if x is relatively prime to n
             return x
+def printAfterJoin(arr):
+    plain = [str(c) for c in arr]
+    print(''.join(plain))
+
 
 def maliciousDecrypt(mal_cipher, xinv, d, n):
     aux1 = [pow(char, d, n) for char in mal_cipher]
     print("Decrypted Output", aux1)
+    printAfterJoin(aux1)
     print("X_inv: ", xinv)
     aux1 = [ (int(p)*xinv)%n for p in aux1 ]
     print("Transformed Output: ", aux1)
+    printAfterJoin(aux1)
     # aux = [str((pow(char, d, n)*xinv)%n) for char in mal_cipher]
     plain = [chr(int(char2)) for char2 in aux1]
     print("Original Encoded Text: ", ''.join(plain))
@@ -196,25 +206,28 @@ def printMenu():
     print(
         '''
         Chose the relevant action
-        1. Factorization Attack
-        2. Chosen Cipher text Attack
-        3. 
-        4.
-        5.
-        6. EXIT
+        1. Change Key Pair
+        2. Find Encryption
+        3. Find Decryption
+        4. Factorization Attack
+        5. Chosen Cipher text Attack
+        6. 
+        7.
+        8. 
+        9. 
+        10. EXIT
         '''
     )
     choice = int(input("Enter your choice: "))
     print(" ")
     print("==========================================================================================================")
-    print("======================================================================================================")
+    print("==========================================================================================================")
     return choice
 
 
 if __name__ == '__main__':
+    print(" : Test Suite : ")
     pu, pr = set_keys() #pu = (e, n), pr = (d, n)
-    # print("Public Key: ", pu)
-    # simulate_rsa(pu, pr)
     cipher = encrypt_rsa(pu)
     decrypt_rsa(pr, cipher)
     while True:
@@ -222,6 +235,12 @@ if __name__ == '__main__':
         e = pu[0]
         n = pu[1]
         if choice == 1:
+            pu, pr = set_keys()
+        elif choice == 2:
+            cipher = encrypt_rsa(pu)
+        elif choice == 3:
+            decrypt_rsa(pr, cipher)
+        elif choice == 4:
             print("n: ", n)
             print("Naive Factorization: ")
             p1, q1 = factorize_naive(n)
@@ -231,23 +250,25 @@ if __name__ == '__main__':
             p2, q2 = factorize_sympy(n)
             print("factors: ", p2, ", ", q2)
             getPrivateKey(p2, q2, e, n)
-            time.sleep(7)
-        elif choice == 2:
+        elif choice == 5:
             x = findX(n)
             print("X: ", x)
             xe = mod_exp(x, e, n)
-            print("X^e: ", x)
+            print("X^e: ", xe)
             print("Cipher: ", cipher)
+            printAfterJoin(cipher)
             mal_cipher = [int((c*xe)%n) for c in cipher]
             print("Malicious Cipher: ", mal_cipher)
+            printAfterJoin(mal_cipher)
             d = pr[0]
             xinv = multiplicative_inverse(x, n)
             maliciousDecrypt(mal_cipher, xinv, d, n)
         elif choice == 3:
             print(3)
+            
         else:
             break
-            
+        # time.sleep(7)
 
 
     
