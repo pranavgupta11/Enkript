@@ -211,11 +211,7 @@ def printMenu():
         3. Find Decryption
         4. Factorization Attack
         5. Chosen Cipher text Attack
-        6. 
-        7.
-        8. 
-        9. 
-        10. EXIT
+        6. EXIT
         '''
     )
     choice = int(input("Enter your choice: "))
