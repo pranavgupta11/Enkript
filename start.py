@@ -15,7 +15,7 @@ def define_dashboard_config():
 		layout="wide",  
 		initial_sidebar_state="auto",  # Can be "auto", "expanded", "collapsed"
 		page_title='ATTACKS ON TEXTBOOK RSA', 
-		page_icon=None,  
+		page_icon=":desktop_computer:",  
 	)
 
 	col_1, col_2 = st.columns([3,1])
@@ -189,10 +189,17 @@ def main():
     plt.style.use('dark_background')
 
     menu = ["About", "RSA Encryptor-Decrypter", "RSA Attacks Simulation"]
-    choice = st.sidebar.selectbox("Menu",menu)
+    choice = st.sidebar.selectbox("Menu",menu)  
 
     if choice=="About":
-        st.title('About')
+        with st.container():
+            st.subheader("Digital Forensics and Cyber Laws [22B12CS412]")
+            st.write("Project Based Learning")
+            st.title('About')
+            st.write(
+            "Preventing an attack is a crucial aspect of ensuring the security and integrity of computer systems and networks. Attacks can range from simple brute force attempts to sophisticated social engineering tactics, and can have a wide variety of goals, such as stealing sensitive information, disrupting operations, or damaging reputation. To prevent an attack, it is important to have a comprehensive security strategy that includes multiple layers of defense. This can include implementing strong access controls, regularly updating software and systems, monitoring and analyzing system logs, training employees on security best practices, and using advanced threat detection technologies. By proactively identifying and addressing vulnerabilities, organizations can significantly reduce the likelihood and impact of successful attacks."
+            )
+        
 
     elif choice == "RSA Encryptor-Decrypter":
         st.header('RSA Encryptor-Decrypter')
