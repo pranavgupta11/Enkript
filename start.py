@@ -406,11 +406,11 @@ def attackLength(cipher, pu, origCipher, n):
   
 
 def knownLengthAttack(pu):
-  msg = st.number_input("Enter n digit pin: ")
+  msg = st.number_input("Enter n digit pin: ",value=5894)
   msg= str(msg)
   arrEncrypted = encrypt(pu, msg)
   origCipher = ''.join(map(lambda x: str(x), arrEncrypted))
-  n = int(st.number_input("Enter guessed Password length: "))
+  n = int(st.number_input("Enter guessed Password length: ",value=4))
   st.write("entered pin was: ",attackLength(arrEncrypted, pu, origCipher, n))
 
 #######################################################     TIME BASED ATTACK   ###################################################
